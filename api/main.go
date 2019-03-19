@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -11,25 +10,27 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func init() {
-	db, err := sql.Open("postgres", "")
-	if err != nil {
-		log.Fatal("Error opening connection", err)
-	}
-	fmt.Println(db)
-	err = db.Ping()
-	if err != nil {
-		log.Fatal("Error doing ping", err)
-	}
-	defer db.Close()
-
+type App struct {
+	router *mux.Router
+	db     *sql.DB
 }
+
+func initApp() App {
+	return App{
+		router: mux.NewRouter(),
+		db:     initdb(),
+	}
+}
+
+var app App
+
 func main() {
-	router := mux.NewRouter()
-	router.HandleFunc("/healthz", HealthCheck)
-	router.HandleFunc("/new", NewScore).Methods("POST")
-	router.HandleFunc("/scores", ListScores)
-	if err := http.ListenAndServe(":2048", router); err != nil {
+	app = initApp()
+	app.router.HandleFunc("/healthz", HealthCheck)
+	app.router.HandleFunc("/new", NewScore).Methods("POST")
+	app.router.HandleFunc("/scores", ListScores)
+	if err := http.ListenAndServe(":2048", app.router); err != nil {
 		log.Fatal(err)
 	}
+
 }
