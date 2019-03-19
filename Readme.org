@@ -1,0 +1,14 @@
+#+TITLE: happiess logger
+#+DESCRIPTION: getting frustrate everyday, lets log why
+#+DATE: Tuesday, Mar 19 2019
+
+* Happiness Score
+** Collect
+  - drop a msg with emoji
+  - rate happiness on interval of 20%{ 😞 😔 🙂 😊 😍 }
+** analyse
+  - catageorize the data
+  - plot, graphs and feedback summary
+
+   
+
