@@ -1,0 +1,11 @@
+version: "3.5"
+
+services:
+  db:
+    image: postgres:11-alpine
+    env_file:
+      - .env.pg
+    volumes:
+      - ./data/postgresql:/var/lib/postgresql
+    ports:
+      - 5432:5432
