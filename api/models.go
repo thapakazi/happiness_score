@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS scores (
 	return
 }
 
-func (s Score) Insert(db *sql.DB) (err error) {
+func (s *Score) Insert(db *sql.DB) (err error) {
 	const qry = `
 INSERT INTO scores (
 	emoji,msg
@@ -62,14 +62,13 @@ VALUES (
 	$1, $2
 )
 RETURNING
-	id, emoji, msg`
-	err = db.QueryRow(qry, s.Emoji, s.Msg).Scan(&s.Id, &s.Emoji, &s.Msg)
+	id, emoji, msg, created_at`
+	err = db.QueryRow(qry, s.Emoji, s.Msg).Scan(&s.Id, &s.Emoji, &s.Msg, &s.CreatedAt)
 	if err != nil {
 		err = errors.Wrapf(err,
 			"Couldn't insert user row into DB (%s)", s)
 		return
 	}
-
 	return
 }
 

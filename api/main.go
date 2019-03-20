@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	_ "github.com/joho/godotenv/autoload"
 	_ "github.com/lib/pq"
+	"github.com/rs/cors"
 )
 
 type App struct {
@@ -27,9 +28,11 @@ var app App
 func main() {
 	app = initApp()
 	app.router.HandleFunc("/healthz", HealthCheck)
-	app.router.HandleFunc("/new", NewScore).Methods("POST")
+	app.router.HandleFunc("/new", NewScore).Methods("POST", "FETCH")
 	app.router.HandleFunc("/scores", ListScores)
-	if err := http.ListenAndServe(":2048", app.router); err != nil {
+	corsHandler := cors.Default().Handler(app.router)
+
+	if err := http.ListenAndServe(":2048", corsHandler); err != nil {
 		log.Fatal(err)
 	}
 

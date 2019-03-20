@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -18,11 +18,16 @@ func ListScores(w http.ResponseWriter, req *http.Request) {
 func NewScore(w http.ResponseWriter, req *http.Request) {
 
 	var score Score
-	_decoder := json.NewDecoder(req.Body)
-	if err := _decoder.Decode(&score); err != nil {
-		RespondWithError(w, http.StatusBadRequest, "Invalid Payload Data")
-		return
-	}
+	_msg, _emoji := req.FormValue("msg"), req.FormValue("emoji")
+	fmt.Println("msg:", _msg)
+	fmt.Println("emoji:", _emoji)
+	score = Score{Emoji: _emoji, Msg: _msg}
+
+	// _decoder := json.NewDecoder(req.Body)
+	// if err := _decoder.Decode(&score); err != nil {
+	// 	RespondWithError(w, http.StatusBadRequest, "Invalid Payload Data")
+	// 	return
+	// }
 	err := score.Insert(app.db)
 	if err != nil {
 		RespondWithError(w, http.StatusBadRequest, "Invalid Payload Data"+err.Error())
