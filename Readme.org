@@ -9,6 +9,6 @@
 ** analyse
   - catageorize the data
   - plot, graphs and feedback summary
-
-   
-
+* Heroku configs
+  - add a pg dyno, there is a free one ;)
+  - and env vars via settings page
