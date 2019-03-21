@@ -1,4 +1,2 @@
-build:
-  cd api && go build 
-run:
-  web: api/api
+run: 
+  web: cd api && go build && bash api
