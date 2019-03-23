@@ -1,2 +1,2 @@
 run: 
-  web: cd api && go build && bash api
+  web: ./bin/cmd
