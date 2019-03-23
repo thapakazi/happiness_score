@@ -25,7 +25,7 @@ formEl.addEventListener('submit', function(event) {
 
   // 2. Make the request
   // ================================
-  var url = 'http://localhost:2048/new';
+  var url = 'https://enigmatic-tor-66377.herokuapp.com/new';
   var fetchOptions = {
     method: 'POST',
     headers,
