@@ -3,20 +3,39 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     </style>
   </head>
   <body>
-
     <form id="form" method="POST", action="">
-      <h3>Socre Slider</h3>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="5" value="3" class="slider" id="myRange" name="emoji">
-        <p>Value: <span id="sliderValue" ></span></p>
+      <h3 id="header">Happniess Score</h3>
+      <div style="width: 480px; overflow: auto;">
+        <canvas id="myCanvas" width="480" height="300"></canvas>
       </div>
-      <div class="msgcontainer">
+      <div id="state">
+        <p><span id="sliderState" >happy/sad</span>: <span id="sliderValue">0</span></p>
+      </div>
+      <div style="width: 480px; overflow: auto;">
+        <div style="float: left;">Sad</div>
+        <div style="float: right;">Happy</div>
+      </div>
+      <div style="width: 440px; height: 60px; overflow: auto; padding: 20px;">
+        <div style="margin-left: auto; margin-right: auto;" id="slider-joy-sadness"></div>
+      </div>
+      <div style="width: 480px; overflow: auto;">
+        <div style="float: left;">Fearful</div>
+        <div style="float: right; position: relative;">Angry</div>
+      </div>
+      <div style="width: 440px; height: 60px; overflow: auto; padding: 20px;">		
+        <div id="slider-angry"></div>	
+      </div>
+      <div>
         <label for ="msginput">Msg:</label>
-        <textarea name="msg" id="msg" cols="20" rows="5"></textarea>
+        <textarea class="msgcontainer"  name="msginput" id="msg" cols="20" rows="5"></textarea>
       </div>
+      <br/>
       <div class="button">
         <button>Send</button>
       </div>
@@ -24,15 +43,16 @@
     <div id="results">
     </div>
     <script>
-      var slider = document.getElementById("myRange");
-      var output = document.getElementById("sliderValue");
-      output.innerHTML = slider.value;
+      // var slider = document.getElementById("myRange");
+      // var output = document.getElementById("sliderValue");
+      // output.innerHTML = slider.value;
 
-      slider.oninput = function() {
-        output.innerHTML = this.value;
-      }
+      // $("#slider-joy-sadness").oninput = function() {
+      //   output.innerHTML = metrics
+      // }
     </script>
     <script type="text/javascript" src="./main.js">    </script>
+    <script type="text/javascript" src="emoji.js"></script>
   </body>
 </html>
 
