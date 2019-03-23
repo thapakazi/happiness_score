@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	_ "github.com/joho/godotenv/autoload"
@@ -32,7 +33,7 @@ func main() {
 	app.router.HandleFunc("/scores", ListScores)
 	corsHandler := cors.Default().Handler(app.router)
 
-	if err := http.ListenAndServe(":2048", corsHandler); err != nil {
+	if err := http.ListenAndServe(os.Getenv("PORT"), corsHandler); err != nil {
 		log.Fatal(err)
 	}
 
