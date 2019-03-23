@@ -1,2 +1,0 @@
-run: 
-  web: ./bin/cmd
