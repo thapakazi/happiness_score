@@ -18,7 +18,8 @@ formEl.addEventListener('submit', function(event) {
   for (var i = 0; i < formEl.length; ++i) {
     formData.append(formEl[i].name, formEl[i].value);
   }
-  
+  formData.append("state",metric.state)
+  formData.append("value",metric.value)
   // This is for the purpose of this demo using jsFiddle AJAX Request endpoint
   //  formData.append('json', JSON.stringify({example: 'return value'}));
 
@@ -32,7 +33,6 @@ formEl.addEventListener('submit', function(event) {
   };
   // debugger;
   var responsePromise = fetch(url, fetchOptions);
-  
   // 3. Use the response
   // ================================
   responsePromise

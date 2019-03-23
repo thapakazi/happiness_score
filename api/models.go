@@ -28,7 +28,8 @@ func initdb() (db *sql.DB) {
 
 type Score struct {
 	Id        int64  `json:"id"`
-	Emoji     string `json:"emoji"`
+	State     string `json:"state"`
+	Value     int    `json:"value"`
 	Msg       string `json:"msg"`
 	CreatedAt string `json:"created_at"`
 }
@@ -38,7 +39,8 @@ func CreateTable(db *sql.DB) (err error) {
 	const qry = `
 CREATE TABLE IF NOT EXISTS scores (
 	id serial PRIMARY KEY,
-    emoji varchar,
+    state varchar,
+    value int,
 	msg text ,
 	created_at timestamp with time zone DEFAULT current_timestamp
 )`
@@ -56,14 +58,14 @@ CREATE TABLE IF NOT EXISTS scores (
 func (s *Score) Insert(db *sql.DB) (err error) {
 	const qry = `
 INSERT INTO scores (
-	emoji,msg
+	state,value,msg
 )
 VALUES (
-	$1, $2
+	$1, $2, $3
 )
 RETURNING
-	id, emoji, msg, created_at`
-	err = db.QueryRow(qry, s.Emoji, s.Msg).Scan(&s.Id, &s.Emoji, &s.Msg, &s.CreatedAt)
+	id, state,value, msg, created_at`
+	err = db.QueryRow(qry, s.State, s.Value, s.Msg).Scan(&s.Id, &s.State, &s.Value, &s.Msg, &s.CreatedAt)
 	if err != nil {
 		err = errors.Wrapf(err,
 			"Couldn't insert user row into DB (%s)", s)
@@ -83,7 +85,7 @@ func List(db *sql.DB) (scores Scores, err error) {
 	defer rows.Close()
 	for rows.Next() {
 		s := Score{}
-		err = rows.Scan(&s.Id, &s.Emoji, &s.Msg, &s.CreatedAt)
+		err = rows.Scan(&s.Id, &s.State, &s.Value, &s.Msg, &s.CreatedAt)
 		if err != nil {
 			return
 		}
