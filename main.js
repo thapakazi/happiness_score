@@ -43,6 +43,7 @@ formEl.addEventListener('submit', function(event) {
   // 3.2 Do something with the JSON data
     .then(function(jsonData) {
       console.log(jsonData);
+      toastr.success("Thanks for logging today's score.")
       document.getElementById('results').innerText = JSON.stringify(jsonData);
     });
   
