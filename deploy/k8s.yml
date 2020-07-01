@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: happiness_score
+  annotations:
+    # dev.okteto.com/path: okteto.yml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: happiness_score
+  template:
+    metadata:
+      labels:
+        app: happiness_score
+    spec:
+      containers:
+      - image: registry.cloud.okteto.net/thapakazi/happiness_score:latest
+        name: happiness_score
+        envFrom:
+          - secretRef:
+              name: hapiness_score
+        ports:
+          - containerPort: 8080
+            name: apiport
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: happiness_score
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: "happiness_score"
+    port: 8080
+  selector:
+    app: happiness_score

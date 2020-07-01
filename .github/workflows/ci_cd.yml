@@ -1,0 +1,35 @@
+# File: .github/workflows/workflow.yml
+on: [push]
+
+name: example
+
+jobs:
+  devflow:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    
+    - name: "Activate Namespace"
+      uses: okteto/namespace@master
+      with:
+        name: thapakazi
+    
+    # - name: "Build"
+    #   uses: okteto/actions/build@master
+    #   with:
+    #     tag: registry.cloud.okteto.net/thapakazi/happiness_score:latest
+    
+    - name: "Deploy application"
+      uses: okteto/apply@master
+      with:
+        namespace: thapakazi
+        manifest: deploy/k8s.yaml
+  
+    - name: "Push changes"
+      uses: okteto/push@master
+      with:
+        namespace: thapakazi
+        name: happiness_score
