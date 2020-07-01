@@ -40,3 +40,4 @@ jobs:
       with:
         namespace: thapakazi
         name: happiness-score
+        working-directory: api
