@@ -22,13 +22,6 @@ jobs:
     #   uses: okteto/actions/build@master
     #   with:
     #     tag: registry.cloud.okteto.net/thapakazi/happiness-score:latest
-    - name: "Debug"
-      run: |
-        ls -la $GITHUB_WORKSPACE
-        docker images
-        pwd
-        env
-
     - name: "Deploy application"
       uses: okteto/apply@master
       with:
@@ -39,5 +32,5 @@ jobs:
       uses: okteto/push@master
       with:
         namespace: thapakazi
-        name: happiness-score
+        name: custom/happiness-score
         working-directory: api

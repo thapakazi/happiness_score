@@ -15,7 +15,7 @@ spec:
         app: happiness-score
     spec:
       containers:
-      - image: registry.cloud.okteto.net/thapakazi/happiness-score:latest
+      - image: registry.cloud.okteto.net/thapakazi/custom/happiness-score:latest
         name: happiness-score
         envFrom:
           - secretRef:
