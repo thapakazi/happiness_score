@@ -21,7 +21,7 @@ jobs:
     # - name: "Build"
     #   uses: okteto/actions/build@master
     #   with:
-    #     tag: registry.cloud.okteto.net/thapakazi/happiness_score:latest
+    #     tag: registry.cloud.okteto.net/thapakazi/happiness-score:latest
     - name: "Debug"
       run: |
         ls -la $GITHUB_WORKSPACE
@@ -39,4 +39,4 @@ jobs:
       uses: okteto/push@master
       with:
         namespace: thapakazi
-        name: happiness_score
+        name: happiness-score
