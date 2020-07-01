@@ -21,12 +21,12 @@ jobs:
     #   uses: okteto/actions/build@master
     #   with:
     #     tag: registry.cloud.okteto.net/thapakazi/happiness_score:latest
-    
+
     - name: "Deploy application"
       uses: okteto/apply@master
       with:
         namespace: thapakazi
-        manifest: deploy/k8s.yaml
+        manifest: deploy/k8s.yml
   
     - name: "Push changes"
       uses: okteto/push@master
