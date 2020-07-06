@@ -1,5 +1,8 @@
 # File: .github/workflows/workflow.yml
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 name: Test and Deploy
 
